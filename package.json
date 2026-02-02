@@ -1,15 +1,32 @@
 {
   "name": "slippi-api",
   "version": "1.0.0",
-  "description": "Slippi API",
-  "license": "ISC",
-  "author": "",
+  "description": "Slippi ranked netplay API client and CLI",
+  "license": "MIT",
+  "author": "Nate Brooks",
   "type": "module",
   "main": "index.js",
+  "bin": {
+    "slippi": "./cli.js"
+  },
+  "keywords": ["slippi", "melee", "ssbm", "smash", "netplay"],
+  "exports": {
+    ".": "./index.js",
+    "./characters": "./characters.js",
+    "./ranks": "./ranks.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "example": "node examples.js"
   },
   "dependencies": {
     "node-fetch": "^3.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/natewbrooks/slippi-api"
+  },
+  "bugs": {
+    "url": "https://github.com/natewbrooks/slippi-api/issues"
   }
 }
