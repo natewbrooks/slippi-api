@@ -45,11 +45,19 @@ export class RankedNetplayProfile {
   }
 
   /**
-   * Gets total games played
-   * @returns {number} Total games
+   * Gets total sets played
+   * @returns {number} Total sets played
    */
-  getTotalGames() {
+  getTotalSets() {
     return this.wins + this.losses;
+  }
+
+  /**
+ * Gets total games played
+ * @returns {number} Total games played
+ */
+  getTotalCharacterGames() {
+    return this.characters.reduce((sum, c) => sum + (c.gameCount || 0), 0);
   }
 
   /**
@@ -57,7 +65,7 @@ export class RankedNetplayProfile {
    * @returns {number} Win rate (0-100)
    */
   getWinRate() {
-    const total = this.getTotalGames();
+    const total = this.getTotalSets();
     return total > 0 ? (this.wins / total) * 100 : 0;
   }
 }
@@ -103,7 +111,7 @@ export class SlippiUser {
    * @returns {string} Rank name (e.g., "Gold 2", "Master 1", "Grandmaster")
    */
   getRank() {
-    const totalGames = this.rankedProfile.getTotalGames();
+    const totalGames = this.rankedProfile.getTotalSets();
     
     // Check if they've played placement games
     if (totalGames < 5) {
@@ -153,7 +161,7 @@ export class SlippiUser {
    * @returns {Array<{name: string, displayName: string, gameCount: number, percentage: number, imageUrl: string}>}
    */
   getCharacterImages() {
-    const totalGames = this.rankedProfile.getTotalGames();
+    const totalGames = this.rankedProfile.getTotalCharacterGames();
     
     return this.getCharactersSorted().map(char => ({
       name: char.character,
@@ -186,7 +194,7 @@ export class SlippiUser {
       wins: this.rankedProfile.wins,
       losses: this.rankedProfile.losses,
       winRate: this.rankedProfile.getWinRate().toFixed(2) + '%',
-      totalGames: this.rankedProfile.getTotalGames(),
+      totalGames: this.rankedProfile.getTotalCharacterGames(),
       mainCharacter: this.getMainCharacter()?.character || 'None',
       profileUrl: this.getProfileUrl(),
       subscription: this.subscription.level,

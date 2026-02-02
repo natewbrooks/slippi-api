@@ -1,7 +1,7 @@
 /**
  * Rank definitions with ELO boundaries
  */
-const RANKS = [
+export const RANKS = [
   { name: 'Bronze 1', min: 0, max: 765.42 },
   { name: 'Bronze 2', min: 765.43, max: 913.71 },
   { name: 'Bronze 3', min: 913.72, max: 1054.86 },

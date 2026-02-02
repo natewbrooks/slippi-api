@@ -36,8 +36,10 @@ async function main() {
       const chars = player.getCharactersSorted();
       if (chars.length > 0) {
         console.log('\nCharacter Usage:');
+        const totalGames = player.rankedProfile.getTotalCharacterGames();
+
         chars.forEach(char => {
-          const percentage = ((char.gameCount / player.rankedProfile.getTotalGames()) * 100).toFixed(1);
+          const percentage = ((char.gameCount / totalGames) * 100).toFixed(1);
           console.log(`  ${char.character}: ${char.gameCount} games (${percentage}%)`);
         });
       }

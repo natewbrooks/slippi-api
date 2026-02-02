@@ -15,7 +15,8 @@ export async function getPlayerCharacterImages(connectCode) {
   }
 
   const characters = player.getCharactersSorted();
-  
+  const totalGames = player.rankedProfile.getTotalCharacterGames();
+
   return {
     player: {
       displayName: player.displayName,
@@ -27,7 +28,7 @@ export async function getPlayerCharacterImages(connectCode) {
       name: char.character,
       displayName: getCharacterDisplayName(char.character),
       gameCount: char.gameCount,
-      percentage: parseFloat(((char.gameCount / player.rankedProfile.getTotalGames()) * 100).toFixed(1)),
+      percentage: totalGames > 0 ? parseFloat(((char.gameCount / totalGames) * 100).toFixed(1)) : 0,
       imageUrl: char.getIconUrl()
     }))
   };

@@ -69,7 +69,7 @@ async function playerStats() {
   console.log(`Rating: ${profile.ratingOrdinal.toFixed(2)}`);
   console.log(`Record: ${profile.wins}W - ${profile.losses}L`);
   console.log(`Win Rate: ${profile.getWinRate().toFixed(2)}%`);
-  console.log(`Total Games: ${profile.getTotalGames()}`);
+  console.log(`Total Games: ${profile.getTotalSets()}`);
   console.log(`Continent: ${profile.continent || 'Unknown'}`);
   
   if (profile.dailyGlobalPlacement) {
@@ -93,7 +93,7 @@ async function playerStats() {
     if (chars.length > 1) {
       console.log('\nAll Characters:');
       chars.forEach(char => {
-        const percentage = ((char.gameCount / profile.getTotalGames()) * 100).toFixed(1);
+        const percentage = ((char.gameCount / profile.getTotalSets()) * 100).toFixed(1);
         console.log(
           `  ${getCharacterDisplayName(char.character).padEnd(20)} ` +
           `${char.gameCount.toString().padStart(4)} games (${percentage.padStart(5)}%)`
