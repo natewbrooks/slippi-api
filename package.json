@@ -1,6 +1,6 @@
 {
   "name": "slippi-api",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Slippi ranked netplay API client and CLI",
   "license": "MIT",
   "author": "Nate Brooks",
