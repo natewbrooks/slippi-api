@@ -35,17 +35,20 @@ export interface CharacterIDs {
 }
 
 export type CharacterName = keyof CharacterIDs;
+export type PlayableCharacterName = Exclude<CharacterName, 'None'>;
 
-export declare const CHARACTER_IDS: CharacterIDs;
-export declare const CHARACTER_COLORS: Record<CharacterName, string>;
+export declare namespace characters {
+  export declare const CHARACTER_IDS: CharacterIDs;
+  export declare const CHARACTER_COLORS: Partial<Record<PlayableCharacterName, string>>;
 
-export function getCharacterId(name: CharacterName, dkClaus?: boolean): number | null;
-export function getCharacterName(id: number): CharacterName | null;
-export function getCharacterUrl(name: CharacterName): string;
-export function getCharacterColor(name: CharacterName): string;
-export function getAllCharacters(): CharacterName[];
-export function isValidCharacter(name: string): boolean;
-export function getCharacterDisplayName(name: CharacterName): string;
+  export function getCharacterId(name: CharacterName, dkClaus?: boolean): number | null;
+  export function getCharacterName(id: number): CharacterName | null;
+  export function getCharacterUrl(name: string): string;
+  export function getCharacterColor(name: string): string;
+  export function getAllCharacters(): PlayableCharacterName[];
+  export function isValidCharacter(name: string): boolean;
+  export function getCharacterDisplayName(name: string): string;
+}
 
 // ============================================================================
 // Ranks
@@ -85,18 +88,19 @@ export type RankTier =
   | 'None'
   | 'Pending';
 
-export interface RankRange {
-  min: number;
-  max: number;
+export declare namespace ranks {
+  export interface RankRange {
+    min: number;
+    max: number;
+  }
+
+  export function getRank(elo: number, dailyGlobalPlacement?: number | null): RankName;
+  export function getRankTier(rankName: RankName): RankTier;
+  export function getRankDivision(rankName: RankName): number | null;
+  export function getRankRange(rankName: RankName): RankRange | null;
+  export function isRankHigher(rank1: RankName, rank2: RankName): boolean;
+  export function getAllRanks(): RankName[];
 }
-
-export function getRank(elo: number, dailyGlobalPlacement?: number | null): RankName;
-export function getRankTier(rankName: RankName): RankTier;
-export function getRankDivision(rankName: RankName): number | null;
-export function getRankRange(rankName: RankName): RankRange | null;
-export function isRankHigher(rank1: RankName, rank2: RankName): boolean;
-export function getAllRanks(): RankName[];
-
 // ============================================================================
 // Character Class
 // ============================================================================
@@ -126,22 +130,9 @@ export class RankedNetplayProfile {
   characters: Character[];
 
   constructor(data?: Partial<RankedNetplayProfile>);
-  getTotalGames(): number;
+  getTotalSets(): number;
+  getTotalCharacterGames(): number;
   getWinRate(): number;
-}
-
-// ============================================================================
-// Subscription Status
-// ============================================================================
-
-export type SubscriptionLevel = 'NONE' | 'BRONZE' | 'SILVER' | 'GOLD';
-
-export class SubscriptionStatus {
-  level: SubscriptionLevel;
-  hasGiftSub: boolean;
-  active: boolean;
-
-  constructor(data?: Partial<SubscriptionStatus>);
 }
 
 // ============================================================================
@@ -176,6 +167,14 @@ export class SlippiUser {
   getProfileUrl(): string;
   getMainCharacter(): Character | null;
   getCharactersSorted(): Character[];
+  getMainCharacterImage(): string | null;
+  getCharacterImages(): Array<{
+    name: string;
+    displayName: string;
+    gameCount: number;
+    percentage: number;
+    imageUrl: string;
+  }>;
   toJSON(): SlippiUserSummary;
   toString(): string;
 }
