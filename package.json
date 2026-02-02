@@ -1,6 +1,6 @@
 {
   "name": "slippi-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Slippi ranked netplay API client and CLI",
   "license": "MIT",
   "author": "Nate Brooks",
@@ -9,7 +9,13 @@
   "bin": {
     "slippi": "./cli.js"
   },
-  "keywords": ["slippi", "melee", "ssbm", "smash", "netplay"],
+  "keywords": [
+    "slippi",
+    "melee",
+    "ssbm",
+    "smash",
+    "netplay"
+  ],
   "exports": {
     ".": "./index.js",
     "./characters": "./characters.js",
